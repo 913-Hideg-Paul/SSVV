@@ -59,7 +59,7 @@ public abstract class AbstractFileRepository<ID, E extends HasID<ID>> extends Ab
             //Iterable<E> all = super.findAll();
             super.findAll().forEach(e -> b.println(e.toString()));
         }
-            catch (IOException exception) {
+        catch (IOException exception) {
             throw new ValidationException(exception.getMessage());
         }
 

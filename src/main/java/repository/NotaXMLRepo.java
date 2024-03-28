@@ -74,5 +74,5 @@ public class NotaXMLRepo extends AbstractXMLRepository<String, Nota> {
         LocalDate dat = LocalDate.of(Integer.parseInt(d[0]), Integer.parseInt(d[1]), Integer.parseInt(d[2]));
 
         return new Nota(id,studentId,temaId,Double.parseDouble(notaProf),dat);
-        }
+    }
 }
