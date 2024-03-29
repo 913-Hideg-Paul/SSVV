@@ -55,111 +55,91 @@ public class StudentTests {
         NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
         NotaXMLRepo notaXMLRepository = new NotaXMLRepo(filenameNota);
         Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
-        Student student = new Student("1", "Mihai", 1, "Mihai@mihai.mihai");
+        Student student = new Student("1", "paul", 933, "paul@gmail.com");
         Student student1 = service.addStudent(student);
         Assertions.assertEquals(student, student1);
         Assertions.assertNotEquals(null, student1);
     }
-
-    /*
     @Test
-    public void TestSmallerId(){
-        //id student < 1 => still works even if normally it shouldn't
-        Student hwStudent1 = new Student("0", "Mihai", 1, "Mihai@mihai.com");
-        service.addStudent(hwStudent1);
-        Assertions.assertNotEquals(null, service.findStudent("0")); // it returns a student hence it's not an error
+    public void TestValidInput(){
+        // 1
+        //test valid input fields
+        Student hwStudent1 = new Student("1", "paul", 933, "paul@gmail.com");
+        Assertions.assertEquals(hwStudent1, service.addStudent(hwStudent1));
     }
+//     @Test
+//    public void TestExistingId(){
+//        //id student = 2 => it already exists => it shouldn't work, but it does => ERROR
+//        Student hwStudent2 = new Student("2", "paul", 1, "paul@paul.com");
+//        Assertions.assertNotEquals(null, service.findStudent("2"));
+//        service.addStudent(hwStudent2);
+//        Assertions.assertNotEquals(hwStudent2, service.findStudent("2"));
+//    }
 
-*//*    @Test
-    public void TestExistingId(){
-        //id student = 2 => it already exists => it shouldn't work, but it does => ERROR
-        Student hwStudent2 = new Student("2", "Mihai", 1, "Mihai@mihai.com");
-        Assertions.assertNotEquals(null, service.findStudent("2"));
-        service.addStudent(hwStudent2);
-        Assertions.assertNotEquals(hwStudent2, service.findStudent("2"));
-    }*//*
-
+    //    @Test
+//    public void TestInvalidId(){
+//        //id student = a => it should throw an error, but it doesn't => ERROR
+//        Student hwStudent3 = new Student("a", "Michael", 1, "Michael@Jackson.mj");
+//        Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent3);});
+//    }
     @Test
-    public void TestInvalidId(){
-        //id student = a => it should throw an error, but it doesn't => ERROR
-        Student hwStudent3 = new Student("a", "Michael", 1, "Michael@Jackson.mj");
-        Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent3);});
+    public void TestEmptyId(){
+        // 2
+        //Empty id -> it shouldn't work
+        Student hwStudent2 = new Student("", "paul", 933, "paul@gmail.com");
+//        Assertions.assertEquals(hwStudent4, service.addStudent(hwStudent4));
+        Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent2);});
     }
-
-    @Test
-    public void TestRandomId(){
-        //Choose an id that doesn't exist => it should work
-        Student hwStudent4 = new Student("153", "Mike", 1, "MikeTyson@Mike.com");
-        Assertions.assertEquals(hwStudent4, service.addStudent(hwStudent4));
-    }
-
     @Test
     public void TestNullId(){
+        // 3
         //try to add a student with a null id => it shouldn't work
-        Student hwStudent5 = new Student(null, "Mikey", 1, "MikeyHash@gmail.com");
+        Student hwStudent3 = new Student(null, "paul", 933, "paul@gmail.com");
+        Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent3);});
+    }
+    @Test
+    public void TestEmptyName(){
+        // 5
+        //try to add a student with a empty name => it shouldn't work
+        Student hwStudent5 = new Student("1", "", 933, "alex@gmail.com");
         Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent5);});
     }
-
     @Test
     public void TestNullName(){
+        // 6
         //try to add a student with a null name => it shouldn't work
-        Student hwStudent6 = new Student("154", null, 1, "e@e.com");
+        Student hwStudent6 = new Student("1", null, 933, "alex@gmail.com");
         Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent6);});
     }
-
-    @Test
-    public void TestInvalidName(){
-        //try to add a student who has a name that is not valid(no letters)
-        Student hwStudent7 = new Student("155", "910", 1, "e@e.com");
-        Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent7);});
-    }
-
     @Test
     public void TestNegativeGroup(){
+        // 7
         //try to add a student from a group that is a negative number
-        Student hwStudent8 = new Student("156", "Student", -1, "e@e.com");
-        Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent8);});
+        Student hwStudent7 = new Student("1", "alex", -933, "alex@gmail.com");
+        Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent7);});
     }
-
     @Test
     public void TestNullEmail(){
+        // 8
         //try to add a student with a null email
-        Student hwStudent9 = new Student("157", "Student", 1, null);
+        Student hwStudent8 = new Student("1", "alex", 933, null);
+        Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent8);});
+    }
+    @Test
+    public void TestEmptyEmail(){
+        // 9
+        //try to add a student that has an email that is an empty string
+        Student hwStudent9 = new Student("1", "alex", 933, "");
         Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent9);});
     }
 
     @Test
-    public void TestNumberEmail(){
-        //try to add a student that has an email that contains only numbers
-        Student hwStudent10 = new Student("158", "Michael", 1, "910");
-        Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent10);});
+    public void TestZeroGroup(){
+        // 10
+        //try to add a student with the group as 0
+        Student hwStudent10 = new Student("1", "alex", 0, "alex@gmail.com");
+        Assertions.assertEquals(hwStudent10, service.addStudent(hwStudent10));
     }
 
-    @Test
-    public void TestMinimumGroup(){
-        //try to add a student with the lowest group
-        Student hwStudent11 = new Student("159", "Michael", 1, "910@email.com");
-        Assertions.assertEquals(hwStudent11, service.addStudent(hwStudent11));
-    }
 
-    @Test
-    public void TestMaximumGroup(){
-        //try to add a student with a large number as group
-        Student hwStudent12 = new Student("160", "Michael", 1000000000, "910@email.com");
-        Assertions.assertEquals(hwStudent12, service.addStudent(hwStudent12));
-    }
-
-    @Test
-    public void TestRandomGroup(){
-        //choose a random group number(not generated)
-        Student hwStudent13 = new Student("160", "Michael", 123, "910@email.com");
-        Assertions.assertEquals(hwStudent13, service.addStudent(hwStudent13));
-    }
-
-    @Test
-    public void TestValidInput(){
-        //test valid input fields
-        Student hwStudent14 = new Student("25", "Michael", 123, "Michael@email.com");
-        Assertions.assertEquals(hwStudent14, service.addStudent(hwStudent14));
-    }*/
 }

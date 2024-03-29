@@ -37,13 +37,5 @@ public class StudentValidator implements Validator<Student> {
         if(!entity.getEmail().contains("@") && !entity.getEmail().contains(".")){
             throw new ValidationException("Incorrect email format!");
         }
-        //validation for ids with letters
-        if(entity.getID().matches(".*[a-zA-Z].*")){
-            throw new ValidationException("ID can't containt any letters!");
-        }
-        //validation for names that contain digits
-        if(entity.getNume().matches(".*\\d+.*")){
-            throw new ValidationException("Names can't contain digits!");
-        }
     }
 }
