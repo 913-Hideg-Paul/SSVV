@@ -67,21 +67,6 @@ public class StudentTests {
         Student hwStudent1 = new Student("1", "paul", 933, "paul@gmail.com");
         Assertions.assertEquals(hwStudent1, service.addStudent(hwStudent1));
     }
-//     @Test
-//    public void TestExistingId(){
-//        //id student = 2 => it already exists => it shouldn't work, but it does => ERROR
-//        Student hwStudent2 = new Student("2", "paul", 1, "paul@paul.com");
-//        Assertions.assertNotEquals(null, service.findStudent("2"));
-//        service.addStudent(hwStudent2);
-//        Assertions.assertNotEquals(hwStudent2, service.findStudent("2"));
-//    }
-
-    //    @Test
-//    public void TestInvalidId(){
-//        //id student = a => it should throw an error, but it doesn't => ERROR
-//        Student hwStudent3 = new Student("a", "Michael", 1, "Michael@Jackson.mj");
-//        Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent3);});
-//    }
     @Test
     public void TestEmptyId(){
         // 2
@@ -96,6 +81,16 @@ public class StudentTests {
         //try to add a student with a null id => it shouldn't work
         Student hwStudent3 = new Student(null, "paul", 933, "paul@gmail.com");
         Assertions.assertThrows(ValidationException.class, () ->{ service.addStudent(hwStudent3);});
+    }
+
+    @Test
+    public void TestExistingId(){
+        // 4
+        //id student = 1 => it already exists => it shouldn't work, but it does => ERROR
+        Student hwStudent5 = new Student("1", "paul", 933, "paul@gmail.com");
+        Assertions.assertNotEquals(null, service.findStudent("1"));
+        service.addStudent(hwStudent5);
+        Assertions.assertNotEquals(hwStudent5, service.findStudent("1"));
     }
     @Test
     public void TestEmptyName(){
@@ -140,6 +135,4 @@ public class StudentTests {
         Student hwStudent10 = new Student("1", "alex", 0, "alex@gmail.com");
         Assertions.assertEquals(hwStudent10, service.addStudent(hwStudent10));
     }
-
-
 }

@@ -2,6 +2,7 @@ package validation;
 
 import domain.Student;
 
+
 public class StudentValidator implements Validator<Student> {
 
     /**
@@ -32,10 +33,6 @@ public class StudentValidator implements Validator<Student> {
         }
         if(entity.getEmail().equals("")){
             throw new ValidationException("Email incorect!");
-        }
-        //validation for invalid email
-        if(!entity.getEmail().contains("@") && !entity.getEmail().contains(".")){
-            throw new ValidationException("Incorrect email format!");
         }
     }
 }

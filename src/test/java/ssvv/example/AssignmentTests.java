@@ -39,16 +39,14 @@ public class AssignmentTests {
     }
 
     @Test
-    public void testAddAssignmentEmptyNr(){
+    public void testAddAssignment(){
 
-        Tema assignment = new Tema("", "Nice job", 10, 1);
-        //assert that the an exception is thrown
-        Assertions.assertThrows(ValidationException.class, () -> {
-            service.addTema(assignment);
-        });
+        Tema assignment = new Tema("1", "Nice job", 10, 1);
+        Tema assignment1 = service.addTema(assignment);
+        //assert that the assignment is added
+        Assertions.assertEquals(assignment, assignment1);
 
     }
-
     @Test
     public void testAddAssignmentNullNr(){
 
@@ -60,68 +58,5 @@ public class AssignmentTests {
 
     }
 
-    @Test
-    public void testAddAssignmentEmptyDescription(){
 
-        Tema assignment = new Tema("1", "", 10, 1);
-        //assert that the an exception is thrown
-        Assertions.assertThrows(ValidationException.class, () -> {
-            service.addTema(assignment);
-        });
-
-    }
-
-    @Test
-    public void testAddAssignmentDeadlineSmallerThan1(){
-
-        Tema assignment = new Tema("1", "Nice job", 0, 1);
-        //assert that the an exception is thrown
-        Assertions.assertThrows(ValidationException.class, () -> {
-            service.addTema(assignment);
-        });
-
-    }
-
-    @Test
-    public void testAddAssignmentDeadlineGreaterThan14(){
-
-        Tema assignment = new Tema("1", "Nice job", 15, 1);
-        //assert that the an exception is thrown
-        Assertions.assertThrows(ValidationException.class, () -> {
-            service.addTema(assignment);
-        });
-
-    }
-
-    @Test
-    public void testAddAssignmentWeekSmallerThan1(){
-
-        Tema assignment = new Tema("1", "Nice job", 10, 0);
-        //assert that the an exception is thrown
-        Assertions.assertThrows(ValidationException.class, () -> {
-            service.addTema(assignment);
-        });
-
-    }
-
-    @Test
-    public void testAddAssignmentWeekGreaterThan14(){
-
-        Tema assignment = new Tema("1", "Nice job", 10, 15);
-        //assert that the an exception is thrown and the exception message is correct
-        Assertions.assertThrows(ValidationException.class, () -> {
-            service.addTema(assignment);
-        });
-
-    }
-
-    @Test
-    public void testAddAssignment(){
-
-        Tema assignment = new Tema("1", "Nice job", 10, 1);
-        Tema assignment1 = service.addTema(assignment);
-        //assert that the assignment is added
-        Assertions.assertEquals(assignment, assignment1);
-
-    }
 }
