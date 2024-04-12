@@ -85,19 +85,10 @@ public class BigBangTests {
             service.deleteTema("111");
             Assertions.assertEquals(sizeBefore-1, service.getAllTeme().spliterator().getExactSizeIfKnown());
         }
-
     }
 
     @Test
     public void testBigBang() {
-        this.cleanup = false;
-//        testAddAssignment();
-//        testAddStudent();
-//        testAddGrade();
 
-//        service.deleteNota("1010");
-//        service.deleteStudent("100");
-//        service.deleteTema("111");
-//        this.cleanup = true;
     }
 }
